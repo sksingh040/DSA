@@ -1,33 +1,18 @@
 class Solution {
 public:
     string convert(string s, int numRows) {
-        if (numRows == 1 || numRows >= s.size())
-            return s;
+        if(numRows==1) return s;
+        string result;
+        int increment=2*(numRows-1);
 
-        vector<string> rows(numRows);
-
-        int currentRow = 0;
-        bool goingDown = true;
-
-        for (char c : s) {
-            rows[currentRow] += c;
-
-            if (currentRow == 0)
-                goingDown = true;
-            else if (currentRow == numRows - 1)
-                goingDown = false;
-
-            if (goingDown)
-                currentRow++;
-            else
-                currentRow--;
+        for(int i=0; i<numRows; i++){
+            for(int j=0; j+i<s.size(); j+=increment){
+                result.push_back(s[j+i]);
+                if(i>0 && i<numRows-1 && j+increment-i < s.size()){
+                    result.push_back(s[j+increment-i]);
+                }
+            }
         }
-
-        string ans = "";
-
-        for (string row : rows)
-            ans += row;
-
-        return ans;
+        return result;
     }
 };
