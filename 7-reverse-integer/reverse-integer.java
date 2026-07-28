@@ -1,22 +1,14 @@
 class Solution {
     public int reverse(int x) {
-        boolean isNegative = x < 0;
-        String s = Integer.toString(Math.abs(x));
-        char[] arr = s.toCharArray();
-        int left = 0, right = arr.length - 1;
-        while (left < right) {
-            char temp = arr[left];
-            arr[left] = arr[right];
-            arr[right] = temp;
-            left++;
-            right--;
+        int rev = 0;
+        while (x != 0) {
+            int digit = x % 10;
+            x /= 10;
+            if (rev > Integer.MAX_VALUE / 10 || rev < Integer.MIN_VALUE / 10) {
+                return 0;
+            }
+            rev = rev * 10 + digit;
         }
-        String reversedStr = new String(arr);
-        if (isNegative) reversedStr = "-" + reversedStr;
-        try {
-            return Integer.parseInt(reversedStr);
-        } catch (NumberFormatException e) {
-            return 0;
-        }
+        return rev;
     }
 }
