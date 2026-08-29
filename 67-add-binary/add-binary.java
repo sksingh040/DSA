@@ -1,6 +1,7 @@
 class Solution {
+    
     public String addBinary(String a, String b) {
-        StringBuilder result = new StringBuilder();
+        String result = "";
         int i = a.length() - 1;
         int j = b.length() - 1;
         int carry = 0;
@@ -9,19 +10,34 @@ class Solution {
             int sum = carry;
 
             if (i >= 0) {
-                sum += a.charAt(i) - '0';
-                i--;
+                if (a.charAt(i) == '1') {
+                    sum = sum + 1;
+                }
+                i = i - 1;
             }
 
             if (j >= 0) {
-                sum += b.charAt(j) - '0';
-                j--;
+                if (b.charAt(j) == '1') {
+                    sum = sum + 1;
+                }
+                j = j - 1;
             }
 
-            result.append(sum % 2);
-            carry = sum / 2;
+            if (sum == 0) {
+                result = "0" + result;
+                carry = 0;
+            } else if (sum == 1) {
+                result = "1" + result;
+                carry = 0;
+            } else if (sum == 2) {
+                result = "0" + result;
+                carry = 1;
+            } else if (sum == 3) {
+                result = "1" + result;
+                carry = 1;
+            }
         }
 
-        return result.reverse().toString();
+        return result;
     }
 }
